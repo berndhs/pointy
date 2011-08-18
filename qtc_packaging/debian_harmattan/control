@@ -1,0 +1,15 @@
+Source: pointy
+Section: user/other
+Priority: optional
+Maintainer: Bernd Stramm <bernd@unknown>
+Build-Depends: debhelper (>= 5), libqt4-dev
+Standards-Version: 3.7.3
+Homepage: <insert the upstream URL, if relevant>
+
+Package: pointy
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: <insert up to 60 chars description>
+ <insert long description, indented with spaces>
+XSBC-Maemo-Display-Name: pointy
+XB-Maemo-Icon-26: iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAANBJREFUaIHt170NwjAQBeAHYiAkWnagZ49MwR702YE2UjYK1SHjv1ghxn7S+7pUvqeckztARERERGgdWhdg5mFa3Ofz41JUWxcB/OJda0GO+5fzX90HyL0dgCAAkA9BEQBIh6AJAMRDUAUAwhCnmofdX7fsBfwYt58RBCg+tKF5mBb7P3y1EEPxxlqJ7g746AMEc0atNnpex+RMs/a3jbE70P0wF+MOeHQt5E+nVAFiozVNgNReQBEgt9RUHSV+VbJWdvEVArbvxCIiIiIi7bwBn947Mhz2KNsAAAAASUVORK5CYII=
