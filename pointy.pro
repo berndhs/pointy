@@ -22,16 +22,27 @@ symbian:TARGET.CAPABILITY += NetworkServices
 # lines and add the respective components to the MOBILITY variable.
 CONFIG += mobility
 MOBILITY += sensors
+MOBILITY += systeminfo
+
+QMAKE_CXXFLAGS += -std=c++0x
 
 INCLUDEPATH += ./include
 
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += \
     src/main.cpp \
-    src/sensor-bucket.cpp
+    src/sensor-bucket.cpp \
+    src/orientation.cpp \ 
+    src/device-info.cpp
 
 HEADERS += \
-    include/sensor-bucket.h 
+    include/sensor-bucket.h \
+    include/orientation.h \
+    include/device-info.h
+
+MOC_DIR = tmp/moc
+OBJECTS_DIR = tmp/obj
+RCC_DIC = tmp/rcc
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)

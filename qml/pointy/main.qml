@@ -1,15 +1,41 @@
-import QtQuick 1.0
+import QtQuick 1.0 
+import QtMobility.systeminfo 1.1
 import moui.experiment.static 1.0
+import moui.geuzen.utils.static 1.0
+		
 
 Rectangle {
   id: mainBox
-  width: 360
-  height: 360
+  width:4096
+  height:4096
   rotation: 0
+  x: isPortrait ? (isInverted ? (width - height) * 0.5 : (height - width) * 0.5) : 0
+  property bool isPortrait: false
+  property bool isInverted: false
   property real rowHeight: 32
-  property real mainWidth: width
-  property real mainHeight: height
+  property real mainWidth: isPortrait ? height : width
+  property real mainHeight: isPortrait ? width : height
   
+  GeuzenOrientation {
+    id: orientationWatcher
+    onRotationChange: {
+      mainBox.isPortrait = portrait
+      mainBox.rotation = rotation
+      mainBox.isInverted = inverted
+      console.log ("orientation port " + mainBox.isPortrait)
+      console.log ("main box x " + mainBox.x + " y " + mainBox.y)
+      console.log ("rect size: " + mainBox.width + ", " + mainBox.height)
+      console.log ("my size  : " + mainWidth + ", " + mainHeight)
+    }
+    Component.onCompleted: {
+      console.log ("have Orientation Watcher")
+      console.log ("orientation port " + mainBox.isPortrait)
+      console.log ("main box x " + mainBox.x + " y " + mainBox.y)
+      console.log ("rect size: " + mainBox.width + ", " + mainBox.height)
+      console.log ("my size  : " + mainWidth + ", " + mainHeight)
+    }
+  }
+
   AccelSense {
     id: accelSensor
     onMeasurement: {
@@ -45,12 +71,22 @@ Rectangle {
       compassDisplay.value2 = calibration
     }
   }
+  
+  GeuzenDeviceInfo {
+    id: deviceInfo
+    onBatteryLevelChanged: {
+      battDisplay.value1 = batteryLevel
+    }
+    onBatteryStatusChanged: {
+      battDisplay.value2 = batteryStatus
+    }
+  }
 
   Rectangle {
     id: titleBox
     anchors {top: mainBox.top; horizontalCenter: mainBox.horizontalCenter }
     width: mainWidth
-    height: rowHeight
+    height: rowHeight * 1.5
     Text {
       font.pointSize:  28
       text: "Sensor Test"
@@ -64,66 +100,85 @@ Rectangle {
       }
     } 
   }
-  
-  Column {
-    anchors { top: titleBox.bottom; horizontalCenter:  titleBox.horizontalCenter }
-    Display3 {
-      id: accelDisplay
-      title: "Linear Acceleration"
-      width: mainWidth
-      height: 2.0 * rowHeight
-      localRowHeight: rowHeight
-      pointSize: 24
-      color: "lightgreen"
-    }
-    Display3 {
-      id: gyroDisplay
-      title: "Angular Velocity"
-      width: mainWidth
-      height: 2.0 * rowHeight
-      localRowHeight: rowHeight
-      pointSize: 24
-      color: "lightblue"
-    }
-    Row {
-      Display1 {
-        id: ambientDisplay
-        title: "Ambient Light"
-        width: 0.5* mainWidth
-        height: 2.0 * rowHeight
+  Flickable {
+    id: displayColumnFlick
+    clip: true
+    interactive: true
+    height: mainHeight - titleBox.height
+    width: mainWidth
+    contentWidth:childrenRect.width
+    contentHeight: childrenRect.height
+    boundsBehavior: Flickable.DragOverBounds
+    anchors { top:  titleBox.bottom; horizontalCenter: mainBox.horizontalCenter }
+    Column {
+      id: displayColumn
+      Display3 {
+        id: accelDisplay
+        title: "Linear Acceleration"
+        width: mainWidth
         localRowHeight: rowHeight
         pointSize: 24
-        color: "#d0ff70"
+        color: "lightgreen"
       }
-      Display1 {
-        id: luxDisplay
-        title: "Lux"
-        width: 0.5*mainWidth
-        height: 2.0 * rowHeight
+      Display3 {
+        id: gyroDisplay
+        title: "Angular Velocity"
+        width: mainWidth
         localRowHeight: rowHeight
         pointSize: 24
-        color: "#c0e0f0"
+        color: "lightblue"
       }
-    }
-    Display2 {
-      id: compassDisplay
-      title: "Compass"
-      width: mainWidth
-      height: 2.0 * rowHeight
-      localRowHeight: rowHeight
-      pointSize: 24
-      value1Label: "azimuth: "
-      value2Label: "calibration: "
-      color: "#f0d0a0"
+      Row {
+        Display1 {
+          id: ambientDisplay
+          title: "Ambient Light"
+          width: 0.5* mainWidth
+          localRowHeight: rowHeight
+          pointSize: 24
+          color: "#d0ff70"
+        }
+        Display1 {
+          id: luxDisplay
+          title: "Lux"
+          width: 0.5*mainWidth
+          localRowHeight: rowHeight
+          pointSize: 24
+          color: "#c0e0f0"
+        }
+      }
+      Display2 {
+        id: compassDisplay
+        title: "Compass"
+        width: mainWidth
+        localRowHeight: rowHeight
+        pointSize: 24
+        value1Label: "azimuth: "
+        value2Label: "calibration: "
+        color: "#f0d0a0"
+      }
+      Display2 {
+        id: battDisplay
+        title: "Battery"
+        width: mainWidth
+        localRowHeight: rowHeight
+        pointSize: 22
+        value1Label: "level % "
+        value2Label: "status: "
+        color: "#dfdfd0"
+      }
     }
   }
 
   Component.onCompleted: {
     console.log ("load completed, calling start routines")
+    orientationWatcher.start ()
     accelSensor.start ()
     gyroSensor.start()
     ambientSensor.start()
     luxSensor.start()
     compassSensor.start()
+    deviceInfo.start ()
+    console.log ("all started")
   }
 }
+

@@ -3,7 +3,7 @@ import QtQuick 1.0
 Rectangle {
   id: unitBox
   width: 100
-  height: 62
+  height: childrenRect.height
   color: "red"
   property real value: -1
   property alias title: titleText.text
@@ -11,15 +11,31 @@ Rectangle {
   property int precision:  4
   property int pointSize:  20
   property string valueLabel:  "value: "
-  Text {
-    id: titleText
-    font.pointSize: unitBox.pointSize + 2
-    anchors { top: parent.top; horizontalCenter: parent.horizontalCenter }
-    text:  "title"
-  }
-  Text {
-    font.pointSize: unitBox.pointSize
-    anchors { bottom: parent.bottom; left: parent.left }
-    text: unitBox.valueLabel + unitBox.value
+  Column {
+    Rectangle {
+      id: titleBox
+      width: unitBox.width
+      height: childrenRect.height
+      color: unitBox.color
+      Text {
+        id: titleText
+        font.pointSize: unitBox.pointSize + 2
+        width: parent.width
+        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+        text:  "title"
+      }
+    }
+    Rectangle {
+      id: valueBox
+      width:  unitBox.width
+      height: childrenRect.height
+      color: unitBox.color
+      Text {
+        font.pointSize: unitBox.pointSize
+        width: parent.width
+        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+        text: unitBox.valueLabel + unitBox.value
+      }
+    }
   }
 }

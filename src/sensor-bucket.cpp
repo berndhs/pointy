@@ -181,8 +181,10 @@ CompassSense::getReading ()
   QCompassReading * result = meter.reading();
   if (result) {
     qreal degrees = result->azimuth();
+    if (degrees < 0) {
+      degrees += 360.0;
+    }
     qreal calibration = result->calibrationLevel();
-    qDebug () << __PRETTY_FUNCTION__ << "  emit compass " << degrees << " " << calibration;
     emit measurement (degrees, calibration);
   }
 }
