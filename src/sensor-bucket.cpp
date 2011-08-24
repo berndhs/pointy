@@ -212,6 +212,40 @@ CompassSense::getReading ()
   }
 }
 
+/** \brief   Proximity Sensor  ********************
+  */
+ProximitySense::ProximitySense (QObject *parent)
+  :QObject (parent),
+   meter (this),
+   readTimer (this)
+{
+  qDebug () << __PRETTY_FUNCTION__;
+  connect (&meter, SIGNAL (readingChanged()),
+           this, SLOT (getReading()));
+  qDebug () << "   Proximity rates available: " << meter.availableDataRates();
+  meter.setDataRate (10);
+  connect (&readTimer, SIGNAL (timeout()),this, SLOT (getReading()));
+  readTimer.start (5*1000);
+}
+
+void
+ProximitySense::start ()
+{
+  qDebug () << __PRETTY_FUNCTION__;
+  meter.start ();
+}
+
+void
+ProximitySense::getReading ()
+{
+  //qDebug () << __PRETTY_FUNCTION__;
+  QProximityReading * result = meter.reading();
+  if (result) {
+    bool isClose = result->close();
+    emit measurement (isClose);
+  }
+}
+
 
 
 } // namespace

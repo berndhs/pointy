@@ -71,6 +71,12 @@ Rectangle {
       compassDisplay.value2 = calibration
     }
   }
+  ProximitySense {
+    id: proximitySensor
+    onMeasurement: {
+      proximityDisplay.value = isClose ? "close" : "far"
+    }
+  }
   
   GeuzenDeviceInfo {
     id: deviceInfo
@@ -166,6 +172,14 @@ Rectangle {
         value2Label: "status: "
         color: "#dfdfd0"
       }
+      Display1String {
+        id: proximityDisplay
+        title: "Proximity"
+        width: mainWidth * 0.5
+        localRowHeight: rowHeight
+        pointSize: 24
+        valueLabel:  "Distance: "
+      }
     }
   }
 
@@ -178,6 +192,7 @@ Rectangle {
     luxSensor.start()
     compassSensor.start()
     deviceInfo.start ()
+    proximitySensor.start()
     console.log ("all started")
   }
 }

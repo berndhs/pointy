@@ -152,6 +152,6 @@ void QmlApplicationViewer::showExpanded()
     showMaximized();
 #else
     showFullScreen ();
+    show();
 #endif
-  show ();
 }

@@ -42,6 +42,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<experiment::AmbientLightSense>(uri,1,0,"AmbientLightSense");
     qmlRegisterType<experiment::LuxSense>(uri,1,0,"LuxSense");
     qmlRegisterType<experiment::CompassSense>(uri,1,0,"CompassSense");
+    qmlRegisterType<experiment::ProximitySense>(uri,1,0,"ProximitySense");
     qmlRegisterType<geuzen::DeviceInfo>(utilUri,1,0,"GeuzenDeviceInfo");
     qmlRegisterType<geuzen::OrientationWatcher>(utilUri, 1, 0,
                  "GeuzenOrientation");

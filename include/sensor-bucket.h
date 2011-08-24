@@ -29,6 +29,7 @@
 #include <QAmbientLightSensor>
 #include <QLightSensor>
 #include <QCompass>
+#include <QProximitySensor>
 
 #include <QTimer>
 
@@ -145,6 +146,28 @@ private:
 
   QCompass          meter;
   QTimer                readTimer;
+};
+
+class ProximitySense: public QObject
+{
+Q_OBJECT
+public:
+  ProximitySense (QObject *parent=0);
+  
+  Q_INVOKABLE void start ();
+  
+signals:
+
+  void measurement (bool isClose);
+  
+private slots:
+
+  void getReading ();
+  
+private:
+
+  QProximitySensor    meter;
+  QTimer              readTimer;
 };
 
 } // namespace
