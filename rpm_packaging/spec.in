@@ -1,0 +1,85 @@
+
+Name:    pointy
+Version: %{sourceversion}
+Release: %{relcount}
+Summary: E6Irc IRC from Egalite
+
+License: GPLv2
+Group:   Applications/Network
+Packager: Bernd Stramm <bernd.stramm@gmail.com>
+Url:     http://berndhs.users.sourceforge.net/
+Source: %{name}_%{version}.tar.gz
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+
+# >> macros
+%if X%{_vendor} == "Xmeego"
+%define my_buildhost "meego"
+%else
+%define my_exec_dir "/usr/bin"
+%if X%{_vendor} == "Xredhat"
+%define qmake qmake-qt4 \
+make
+%else
+%define qmake qmake \
+make
+%endif
+%define qmake_install mkdir -p %{buildroot}%{my_exec_dir} && \
+make INSTALL_ROOT=%{buildroot} install
+%define my_buildhost non-meego-%{vendor}
+%endif
+# << macros
+
+# TODO: patches (?)
+
+
+#Obsoletes:
+
+#Provides: 
+
+BuildRequires: pkgconfig(QtNetwork) >= 4.7
+BuildRequires: pkgconfig(QtDeclarative) >= 4.7
+#BuildRequires: qt-mobility-devel
+BuildRequires: pkgconfig(QtSensors)
+BuildRequires: pkgconfig(QtSystemInfo)
+
+BuildRequires: desktop-file-utils
+BuildRequires: gcc-c++
+
+%description
+Display various sensor values to see if the sensor interface works
+all the way up to Qt
+
+
+%prep
+%setup
+
+%build
+cp %{name}-linux.pro %{name}-linux.pro.save
+rm -f *.pro
+mv %{name}-linux.pro.save %{name}.pro
+%qmake
+
+%install
+
+%qmake_install
+
+%clean
+rm -rf %{buildroot}
+
+
+%post 
+
+%postun 
+
+
+%files
+%defattr(-,root,root,-)
+%doc README
+%doc COPYRIGHT
+%doc LICENSE.txt
+%{_bindir}/%{name}
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/pixmaps/%{name}.png
+
+%changelog
