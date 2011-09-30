@@ -1,10 +1,10 @@
 #include <QtGui/QApplication>
-#include "qmlapplicationviewer.h"
 #include <QSensor>
 #include <QDebug>
 #include "sensor-bucket.h"
 #include "device-info.h"
 #include "orientation.h"
+#include "viewer.h"
 #include <qdeclarative.h>
 
 /****************************************************************
@@ -47,11 +47,10 @@ int main(int argc, char *argv[])
     qmlRegisterType<geuzen::OrientationWatcher>(utilUri, 1, 0,
                  "GeuzenOrientation");
 
-    QmlApplicationViewer viewer;
-    viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
-    viewer.setMainQmlFile(QLatin1String("qml/pointy/main.qml"));
-    viewer.showExpanded();
+    PointyViewer viewer;
 
+    QObject::connect (&viewer,SIGNAL(quit()), &app, SLOT(quit()));
+    viewer.runQrc ("main.qml");
 
     return app.exec();
 }

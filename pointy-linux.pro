@@ -1,18 +1,18 @@
 
 PROJECT = pointy
-# Add more folders to ship with the application, here
-folder_01.source = qml/pointy
-folder_01.target = qml
-DEPLOYMENTFOLDERS = folder_01
+TEMPLATE = app
+TARGET = pointy
 
-# Additional import path used to resolve QML modules in Creator's code model
-QML_IMPORT_PATH =
+INSTALL_TARGET_DIR = /usr/local
 
-# If your application uses the Qt Mobility libraries, uncomment the following
-# lines and add the respective components to the MOBILITY variable.
+
+QT += core gui declarative
+
 CONFIG += mobility
 MOBILITY += sensors
 MOBILITY += systeminfo
+
+RESOURCES = pointy.qrc
 
 QMAKE_CXXFLAGS += -std=c++0x
 
@@ -20,20 +20,32 @@ INCLUDEPATH += ./include
 
 SOURCES += \
     src/main.cpp \
+    src/viewer.cpp \
     src/sensor-bucket.cpp \
     src/orientation.cpp \ 
     src/device-info.cpp
 
 HEADERS += \
+    include/viewer.h \
     include/sensor-bucket.h \
     include/orientation.h \
     include/device-info.h
 
 MOC_DIR = tmp/moc
 OBJECTS_DIR = tmp/obj
-RCC_DIC = tmp/rcc
+RCC_DIR = tmp/rcc
 
-# Please do not modify the following two lines. Required for deployment.
-include(qmlapplicationviewer/qmlapplicationviewer.pri)
-qtcAddDeployment()
+target.path = $${INSTALL_TARGET_DIR}/bin
+INSTALLS += target
+
+desktopfile.files = $${TARGET}.desktop
+desktopfile.path = $${INSTALL_TARGET_DIR}/share/applications
+INSTALLS += desktopfile
+
+icon.files = pointy.png
+icon.path = $${INSTALL_TARGET_DIR}/share/icons/hicolor/64xc64/apps
+INSTALLS += icon
+
+
+
 

@@ -39,9 +39,13 @@ make INSTALL_ROOT=%{buildroot} install
 
 BuildRequires: pkgconfig(QtNetwork) >= 4.7
 BuildRequires: pkgconfig(QtDeclarative) >= 4.7
-#BuildRequires: qt-mobility-devel
+
+%if X%{_vendor} == "Xredhat"
+BuildRequires: qt-mobility-devel
+%else
 BuildRequires: pkgconfig(QtSensors)
 BuildRequires: pkgconfig(QtSystemInfo)
+%endif
 
 BuildRequires: desktop-file-utils
 BuildRequires: gcc-c++

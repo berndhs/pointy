@@ -1,14 +1,15 @@
 import QtQuick 1.0 
-//import QtMobility.systeminfo 1.1
+import QtMobility.systeminfo 1.1
 import moui.experiment.static 1.0
 import moui.geuzen.utils.static 1.0
 		
 
 Rectangle {
   id: mainBox
-  width:4096
-  height:4096
+  width:1024
+  height:1024
   rotation: 0
+  clip: false
   x: isPortrait ? (isInverted ? (width - height) * 0.5 : (height - width) * 0.5) : 0
   property bool isPortrait: false
   property bool isInverted: false
