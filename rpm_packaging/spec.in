@@ -79,6 +79,7 @@ rm -rf %{buildroot}
 %doc COPYRIGHT
 %doc LICENSE.txt
 /opt/%{name}/bin/%{name}
+/opt/%{name}/qml/%{name}/*.qml
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/64x64/apps/%{name}.png
 

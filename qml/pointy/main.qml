@@ -1,5 +1,5 @@
 import QtQuick 1.0 
-import QtMobility.systeminfo 1.1
+//import QtMobility.systeminfo 1.1
 import moui.experiment.static 1.0
 import moui.geuzen.utils.static 1.0
 		
