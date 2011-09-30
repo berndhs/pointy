@@ -60,7 +60,7 @@ contains(MEEGO_EDITION,harmattan) {
 }
 
 contains(MEEGO_EDITION,harmattan) {
-    icon.files = harmattan/pointy.png
+    icon.files = pointy.png
     icon.path = /usr/share/icons/hicolor/64x64/apps
     INSTALLS += icon
 }

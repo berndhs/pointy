@@ -38,12 +38,12 @@ RCC_DIR = tmp/rcc
 target.path = $${INSTALL_TARGET_DIR}/bin
 INSTALLS += target
 
-desktopfile.files = $${TARGET}.desktop
+desktopfile.files = linux/$${TARGET}.desktop
 desktopfile.path = $${INSTALL_TARGET_DIR}/share/applications
 INSTALLS += desktopfile
 
 icon.files = pointy.png
-icon.path = $${INSTALL_TARGET_DIR}/share/icons/hicolor/64xc64/apps
+icon.path = $${INSTALL_TARGET_DIR}/share/icons/hicolor/64x64/apps
 INSTALLS += icon
 
 

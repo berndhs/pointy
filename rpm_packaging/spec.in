@@ -82,9 +82,9 @@ rm -rf %{buildroot}
 %doc README
 %doc COPYRIGHT
 %doc LICENSE.txt
-/opt/%{name}/bin/%{name}
-/opt/%{name}/qml/%{name}/*.qml
-%{_datadir}/applications/%{name}.desktop
-%{_datadir}/icons/hicolor/64x64/apps/%{name}.png
+/usr/local/bin/%{name}
+/usr/local/%{name}/qml/%{name}/*.qml
+/usr/local/share//applications/%{name}.desktop
+/usr/local/share//icons/hicolor/64x64/apps/%{name}.png
 
 %changelog
