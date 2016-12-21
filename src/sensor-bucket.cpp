@@ -38,7 +38,7 @@ AccelSense::AccelSense (QObject *parent)
   :QObject (parent),
    meter (this)
 {
-  qDebug () << __PRETTY_FUNCTION__;
+  qDebug() << Q_FUNC_INFO << "type " << meter.type;
   connect (&meter, SIGNAL (readingChanged()),
            this, SLOT (getReading()));
   qDebug () << "   Accel rates available: " << meter.availableDataRates();
@@ -73,7 +73,7 @@ GyroSense::GyroSense (QObject *parent)
    meter (this),
    readTimer (this)
 {
-  qDebug () << __PRETTY_FUNCTION__;
+  qDebug() << Q_FUNC_INFO << "type " << meter.type;
   connect (&meter, SIGNAL (readingChanged()),
            this, SLOT (getReading()));
   qDebug () << "   Gyro rates available: " << meter.availableDataRates();
@@ -111,7 +111,7 @@ AmbientLightSense::AmbientLightSense (QObject *parent)
    meter (this),
    readTimer (this)
 {
-  qDebug () << __PRETTY_FUNCTION__;
+  qDebug() << Q_FUNC_INFO << "type " << meter.type;
   connect (&meter, SIGNAL (readingChanged()),
            this, SLOT (getReading()));
   qDebug () << "   AmbientLight rates available: " << meter.availableDataRates();
@@ -146,7 +146,7 @@ LuxSense::LuxSense (QObject *parent)
    meter (this),
    readTimer (this)
 {
-  qDebug () << __PRETTY_FUNCTION__;
+  qDebug() << Q_FUNC_INFO << "type " << meter.type;
   connect (&meter, SIGNAL (readingChanged()),
            this, SLOT (getReading()));
   qDebug () << "   Lux rates available: " << meter.availableDataRates();
@@ -181,7 +181,7 @@ CompassSense::CompassSense (QObject *parent)
    meter (this),
    readTimer (this)
 {
-  qDebug () << __PRETTY_FUNCTION__;
+  qDebug() << Q_FUNC_INFO << "type " << meter.type;
   connect (&meter, SIGNAL (readingChanged()),
            this, SLOT (getReading()));
   qDebug () << "   Compass rates available: " << meter.availableDataRates();

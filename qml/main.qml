@@ -1,13 +1,13 @@
 import QtQuick 2.3
-//import QtMobility.systeminfo 1.1
+import QtQuick.Controls 1.4
 import moui.experiment.static 1.0
 import moui.geuzen.utils.static 1.0
 		
 
 Rectangle {
   id: mainBox
-  width:1024
-  height:1024
+  width:600
+  height:600
   rotation: 0
   clip: false
   x: isPortrait ? (isInverted ? (width - height) * 0.5 : (height - width) * 0.5) : 0
@@ -35,6 +35,10 @@ Rectangle {
       console.log ("rect size: " + mainBox.width + ", " + mainBox.height)
       console.log ("my size  : " + mainWidth + ", " + mainHeight)
     }
+  }
+
+  GeuzenDeviceInfo {
+    id: devInfo;
   }
 
   AccelSense {
@@ -95,8 +99,8 @@ Rectangle {
     width: mainWidth
     height: rowHeight * 1.5
     Text {
-      font.pointSize:  28
-      text: "Sensor Test"
+      font.pointSize:  18
+      text: "Sensor Demo"
       anchors { centerIn: titleBox }
     }
     MouseArea {
@@ -106,6 +110,50 @@ Rectangle {
         Qt.quit();
       }
     } 
+    Button {
+      id: pointyButton;
+      height: titleBox.height -2;
+      width: height;
+      anchors {
+          left: titleBox.left
+          top: titleBox.top;
+      }
+
+      tooltip: "Restart";
+      Image {
+          anchors.centerIn: pointyButton;
+          width: pointyButton.width;
+          height: pointyButton.height;
+          source: "/pointy.png"
+      }
+      onClicked: {
+        //reload
+          console.log("clicked on "+pointyButton.iconName+" / "+pointyButton.iconSource)
+      }
+    }
+    Button {
+        id: optionsButton;
+        height: titleBox.height-2;
+        width: height;
+        anchors {
+            left: pointyButton.right
+            leftMargin: 2;
+            top: titleBox.top;
+        }
+
+        tooltip: "Options"
+        Image {
+            anchors.centerIn: optionsButton;
+            width: optionsButton.width;
+            height: optionsButton.height/3;
+            source: "/options.png"
+        }
+
+        onClicked: {
+            // popup options
+          console.log("clicked on "+optionsButton.iconName+" / "+optionsButton.iconSource)
+        }
+      }
   }
   Flickable {
     id: displayColumnFlick
@@ -113,12 +161,27 @@ Rectangle {
     interactive: true
     height: mainHeight - titleBox.height
     width: mainWidth
-    contentWidth:childrenRect.width
-    contentHeight: childrenRect.height
-    boundsBehavior: Flickable.DragOverBounds
+    contentWidth: contentItem.childrenRect.width
+    contentHeight: contentItem.childrenRect.height
+    boundsBehavior: Flickable.DragAndOvershootBounds
     anchors { top:  titleBox.bottom; horizontalCenter: mainBox.horizontalCenter }
     Column {
       id: displayColumn
+
+      Display3String {
+        id: sysDisplay
+        title: "System"
+        width: mainWidth
+        localRowHeight: rowHeight
+        pointSize: 12
+        value1Label: "OS "
+        value2Label: "CPU "
+        value3Label: "Kernel "
+        value1: devInfo.sysName
+        value2: devInfo.cpu
+        value3: devInfo.kernel
+        color: "#dfdfd0"
+      }
       Display3 {
         id: accelDisplay
         title: "Linear Acceleration"
@@ -162,16 +225,6 @@ Rectangle {
         value1Label: "azimuth: "
         value2Label: "calibration: "
         color: "#f0d0a0"
-      }
-      Display2 {
-        id: battDisplay
-        title: "Battery"
-        width: mainWidth
-        localRowHeight: rowHeight
-        pointSize: 22
-        value1Label: "level % "
-        value2Label: "status: "
-        color: "#dfdfd0"
       }
       Display1String {
         id: proximityDisplay

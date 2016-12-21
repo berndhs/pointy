@@ -25,13 +25,13 @@ PointyViewer::runQrc (const QString & qmlFile)
 void
 PointyViewer::platformShow()
 {
-  setResizeMode(QQuickView::SizeRootObjectToView);
+  setResizeMode(QQuickView::SizeViewToRootObject);
 #if defined(Q_OS_SYMBIAN) || defined(MEEGO_EDITION_HARMATTAN) || defined(Q_WS_SIMULATOR)
   qDebug () << __PRETTY_FUNCTION__ << " symbian|harmattan|Q_simulator";
   showFullScreen();
 #else
   qDebug () << __PRETTY_FUNCTION__ << " linux";
-  resize (QSize (600,400));
+//  resize (QSize (600,400));
   showNormal ();
 #endif
   show();

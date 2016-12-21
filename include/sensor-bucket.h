@@ -21,8 +21,24 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, 
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
+// QAccelerometer,
+//QAltimeter,
+//QAmbientLightSensor,
+//QAmbientTemperatureSensor,
+//QCompass,
+//QDistanceSensor,
+//QGyroscope,
+//QHolsterSensor,
+//QIRProximitySensor,
+//QLightSensor,
+//QMagnetometer,
+//QOrientationSensor,
+//QPressureSensor,
+//QProximitySensor,
+//QRotationSensor,
+//QTapSensor,
+//QTiltSensor
 
-#include <QMagnetometer>
 #include <QOrientationSensor>
 #include <QAccelerometer>
 #include <QGyroscope>
@@ -36,6 +52,27 @@
 
 namespace experiment
 {
+
+//class Sensor : public QObject
+//{
+//  Q_OBJECT
+
+//public:
+//  Sensor (QObject *parent=0);
+//  Q_INVOKABLE void start();
+
+//signals:
+
+//private slots:
+
+//  void getReading();
+
+//private:
+
+//  QSensor   meter;
+
+//};
+
 class AccelSense : public QObject
 {
 Q_OBJECT

@@ -1,9 +1,14 @@
 <RCC>
+    <qresource prefix="/">
+        <file alias="options.png">images/options.png</file>
+        <file alias="pointy.png">images/pointy.png</file>
+    </qresource>
     <qresource prefix="/qml">
         <file alias="Display1.qml">qml/Display1.qml</file>
         <file alias="Display1String.qml">qml/Display1String.qml</file>
         <file alias="Display2.qml">qml/Display2.qml</file>
         <file alias="Display3.qml">qml/Display3.qml</file>
+        <file alias="Display3String.qml">qml/Display3String.qml</file>
         <file alias="main.qml">qml/main.qml</file>
     </qresource>
 </RCC>

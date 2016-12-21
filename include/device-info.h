@@ -22,7 +22,6 @@
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
 #include <QObject>
-//#include <QSystemDeviceInfo>
 
 
 namespace geuzen
@@ -34,27 +33,32 @@ Q_OBJECT
 public:
 
   DeviceInfo (QObject *parent=0);
-  
+  Q_PROPERTY(QString sysName READ sysName NOTIFY sysNameChanged)
+  Q_PROPERTY(QString kernel READ kernel NOTIFY kernelChanged)
+  Q_PROPERTY(QString cpu READ cpu NOTIFY cpuChanged)
   Q_INVOKABLE void start ();
-  
-//  Q_INVOKABLE int batteryLevel ();
-//  Q_INVOKABLE int batteryStatus ();
-  
+
+  QString sysName() const;
+
+  QString kernel() const;
+
+  QString cpu() const;
+
 signals:
 
-//  void batteryLevelChanged (int batteryLevel);
-//  void batteryStatusChanged (int batteryStatus);
   
+  void sysNameChanged(QString sysName);
+
+  void kernelChanged(QString kernel);
+
+  void cpuChanged(QString cpu);
+
 private slots:
 
-//  void getBatteryLevel (int);
-//  void getBatteryStatus (QSystemDeviceInfo::BatteryStatus  batteryStatus);
   void collectInfo ();
   
 private:
 
-//  QSystemDeviceInfo   sdi;
-  
 };
 
 } // namespace
