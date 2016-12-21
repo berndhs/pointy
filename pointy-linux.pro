@@ -1,16 +1,18 @@
 
 PROJECT = pointy
 TEMPLATE = app
-TARGET = pointy
+TARGET = $$PROJECT
 
 INSTALL_TARGET_DIR = /usr/local
 
 
-QT += core gui declarative
+QT += core gui quick
+QT += widgets
+QT += qml
+QT += bluetooth
+QT += multimedia
+QT += sensors
 
-CONFIG += mobility
-MOBILITY += sensors
-MOBILITY += systeminfo
 
 RESOURCES = pointy.qrc
 

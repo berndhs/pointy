@@ -1,9 +1,9 @@
 #include "viewer.h"
-#include <QDeclarativeEngine>
+#include <QQmlEngine>
 #include <QDebug>
 
-PointyViewer::PointyViewer(QWidget *parent) :
-    QDeclarativeView(parent)
+PointyViewer::PointyViewer(QWindow *parent) :
+    QQuickView(parent)
 {
   connect (engine(),SIGNAL(quit()),this,SLOT(doQuit()));
 }
@@ -25,7 +25,7 @@ PointyViewer::runQrc (const QString & qmlFile)
 void
 PointyViewer::platformShow()
 {
-  setResizeMode(QDeclarativeView::SizeRootObjectToView);
+  setResizeMode(QQuickView::SizeRootObjectToView);
 #if defined(Q_OS_SYMBIAN) || defined(MEEGO_EDITION_HARMATTAN) || defined(Q_WS_SIMULATOR)
   qDebug () << __PRETTY_FUNCTION__ << " symbian|harmattan|Q_simulator";
   showFullScreen();

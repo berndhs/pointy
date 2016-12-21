@@ -33,7 +33,6 @@
 
 #include <QTimer>
 
-QTM_USE_NAMESPACE
 
 namespace experiment
 {

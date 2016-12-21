@@ -1,13 +1,14 @@
 #ifndef POINTY_VIEWER_H
 #define POINTY_VIEWER_H
 
-#include <QDeclarativeView>
+#include <QQuickView>
+#include <QWindow>
 
-class PointyViewer : public QDeclarativeView
+class PointyViewer : public QQuickView
 {
 Q_OBJECT
 public:
-  explicit PointyViewer(QWidget *parent = 0);
+  explicit PointyViewer(QWindow *parent = 0);
   
   void runLocal (const QString & qmlFile);
   void runQrc (const QString & qrcFile);

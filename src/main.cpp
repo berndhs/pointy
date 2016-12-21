@@ -1,11 +1,11 @@
-#include <QtGui/QApplication>
+#include <QGuiApplication>
 #include <QSensor>
 #include <QDebug>
 #include "sensor-bucket.h"
 #include "device-info.h"
 #include "orientation.h"
 #include "viewer.h"
-#include <qdeclarative.h>
+#include <QQuickView>
 
 /****************************************************************
  * This file is distributed under the following license:
@@ -28,11 +28,10 @@
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
 
-QTM_USE_NAMESPACE
 
 int main(int argc, char *argv[])
 {
-    QApplication app(argc, argv);
+    QGuiApplication app(argc, argv);
     
     const char uri[] = "moui.experiment.static";  
     const char utilUri[] = "moui.geuzen.utils.static";

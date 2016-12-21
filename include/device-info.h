@@ -21,10 +21,9 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, 
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
+#include <QObject>
+//#include <QSystemDeviceInfo>
 
-#include <QSystemDeviceInfo>
-
-QTM_USE_NAMESPACE
 
 namespace geuzen
 {
@@ -38,23 +37,23 @@ public:
   
   Q_INVOKABLE void start ();
   
-  Q_INVOKABLE int batteryLevel ();
-  Q_INVOKABLE int batteryStatus ();
+//  Q_INVOKABLE int batteryLevel ();
+//  Q_INVOKABLE int batteryStatus ();
   
 signals:
 
-  void batteryLevelChanged (int batteryLevel);
-  void batteryStatusChanged (int batteryStatus);
+//  void batteryLevelChanged (int batteryLevel);
+//  void batteryStatusChanged (int batteryStatus);
   
 private slots:
 
-  void getBatteryLevel (int);
-  void getBatteryStatus (QSystemDeviceInfo::BatteryStatus  batteryStatus);
+//  void getBatteryLevel (int);
+//  void getBatteryStatus (QSystemDeviceInfo::BatteryStatus  batteryStatus);
   void collectInfo ();
   
 private:
 
-  QSystemDeviceInfo   sdi;
+//  QSystemDeviceInfo   sdi;
   
 };
 

@@ -26,8 +26,6 @@
 #include <QOrientationSensor>
 #include <QOrientationReading>
 
-QTM_USE_NAMESPACE
-
 namespace geuzen
 {
 class OrientationWatcher : public QOrientationSensor {
