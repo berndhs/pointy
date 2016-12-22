@@ -46,6 +46,7 @@
 #include <QLightSensor>
 #include <QCompass>
 #include <QProximitySensor>
+#include "sync.h"
 
 #include <QTimer>
 
@@ -92,6 +93,7 @@ private slots:
 private:
 
   QAccelerometer   meter;
+  Sync    clock;
 
 };
 

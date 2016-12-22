@@ -10,7 +10,7 @@
 /****************************************************************
  * This file is distributed under the following license:
  *
- * Copyright (C) 2011, 
+ * Copyright (C) 2011,
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
@@ -24,32 +24,35 @@
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, 
+ *  Foundation, Inc., 51 Franklin Street, Fifth Floor,
  *  Boston, MA  02110-1301, USA.
  ****************************************************************/
 
 
 int main(int argc, char *argv[])
 {
-    QGuiApplication app(argc, argv);
-    
-    const char uri[] = "moui.experiment.static";  
-    const char utilUri[] = "moui.geuzen.utils.static";
+  int again(0);
+  do {
+      QGuiApplication app(argc, argv);
 
-    qmlRegisterType<experiment::AccelSense>(uri,1,0,"AccelSense");
-    qmlRegisterType<experiment::GyroSense>(uri,1,0,"GyroSense");
-    qmlRegisterType<experiment::AmbientLightSense>(uri,1,0,"AmbientLightSense");
-    qmlRegisterType<experiment::LuxSense>(uri,1,0,"LuxSense");
-    qmlRegisterType<experiment::CompassSense>(uri,1,0,"CompassSense");
-    qmlRegisterType<experiment::ProximitySense>(uri,1,0,"ProximitySense");
-    qmlRegisterType<geuzen::DeviceInfo>(utilUri,1,0,"GeuzenDeviceInfo");
-    qmlRegisterType<geuzen::OrientationWatcher>(utilUri, 1, 0,
-                 "GeuzenOrientation");
+      const char uri[] = "moui.experiment.static";
+      const char utilUri[] = "moui.geuzen.utils.static";
 
-    PointyViewer viewer;
+      qmlRegisterType<experiment::AccelSense>(uri,1,0,"AccelSense");
+      qmlRegisterType<experiment::GyroSense>(uri,1,0,"GyroSense");
+      qmlRegisterType<experiment::AmbientLightSense>(uri,1,0,"AmbientLightSense");
+      qmlRegisterType<experiment::LuxSense>(uri,1,0,"LuxSense");
+      qmlRegisterType<experiment::CompassSense>(uri,1,0,"CompassSense");
+      qmlRegisterType<experiment::ProximitySense>(uri,1,0,"ProximitySense");
+      qmlRegisterType<geuzen::DeviceInfo>(utilUri,1,0,"GeuzenDeviceInfo");
+      qmlRegisterType<geuzen::OrientationWatcher>(utilUri, 1, 0,
+                                                  "GeuzenOrientation");
 
-    QObject::connect (&viewer,SIGNAL(quit()), &app, SLOT(quit()));
-    viewer.runQrc ("main.qml");
+      PointyViewer viewer;
 
-    return app.exec();
+      QObject::connect (&viewer,SIGNAL(quit()), &app, SLOT(quit()));
+      viewer.runQrc ("main.qml");
+
+      again = app.exec();
+    } while (again == 42);
 }

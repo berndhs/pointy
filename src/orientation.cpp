@@ -30,7 +30,8 @@ namespace geuzen
 OrientationWatcher::OrientationWatcher (QObject *parent)
   :QOrientationSensor(parent),
    lastSetting (QOrientationReading::Undefined),
-   watching (true)
+   watching (true),
+   fakeTurn(0.0)
 {
   connect (this, SIGNAL (readingChanged()), this, SLOT (changeHappened()));
   // starting it from here is too fast, the client will miss the
@@ -48,7 +49,19 @@ OrientationWatcher::watch (bool doWatch)
     changeHappened ();
   } else {
     stop ();
-  }
+    }
+}
+
+void OrientationWatcher::turn()
+{
+   fakeTurn += 90;
+
+   /** !brief  0 - right edge up,  180 - left edge up
+             +90 - bottom edge up  -90 - top edge up
+    */
+   bool portrait = (fakeTurn >= 179.9 && fakeTurn <= 181.1);
+   bool inverted = false;
+   emit rotationChange (fakeTurn, portrait, inverted);
 }
 
 void

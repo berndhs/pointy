@@ -43,6 +43,7 @@ AccelSense::AccelSense (QObject *parent)
            this, SLOT (getReading()));
   qDebug () << "   Accel rates available: " << meter.availableDataRates();
   meter.setDataRate (10);
+  clock.signup();
 }
 
 void
@@ -56,6 +57,9 @@ void
 AccelSense::getReading ()
 {
  // qDebug () << __PRETTY_FUNCTION__;
+  if (!clock.open()) {
+    return;
+  }
   QAccelerometerReading * result = meter.reading();
   if (result) {
     qreal dx = result->x();
@@ -64,6 +68,7 @@ AccelSense::getReading ()
    // qDebug () << __PRETTY_FUNCTION__ << "  emit";
     emit measurement (dx,dy,dz);
   }
+  clock.reRun();
 }
 
 /** \brief   Gyroscope  ********************
@@ -79,7 +84,7 @@ GyroSense::GyroSense (QObject *parent)
   qDebug () << "   Gyro rates available: " << meter.availableDataRates();
   meter.setDataRate (10);
   connect (&readTimer, SIGNAL (timeout()),this, SLOT (getReading()));
-  readTimer.start (100);
+  readTimer.start (500);
 }
 
 void
@@ -117,7 +122,7 @@ AmbientLightSense::AmbientLightSense (QObject *parent)
   qDebug () << "   AmbientLight rates available: " << meter.availableDataRates();
   meter.setDataRate (10);
   connect (&readTimer, SIGNAL (timeout()),this, SLOT (getReading()));
-  //readTimer.start (100);
+  readTimer.start (500);
 }
 
 void
@@ -152,7 +157,7 @@ LuxSense::LuxSense (QObject *parent)
   qDebug () << "   Lux rates available: " << meter.availableDataRates();
   meter.setDataRate (10);
   connect (&readTimer, SIGNAL (timeout()),this, SLOT (getReading()));
-  //readTimer.start (100);
+  readTimer.start (500);
 }
 
 void

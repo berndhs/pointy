@@ -28,13 +28,15 @@ SOURCES += \
     src/viewer.cpp \
     src/sensor-bucket.cpp \
     src/orientation.cpp \ 
-    src/device-info.cpp
+    src/device-info.cpp \
+    include/sync.cpp
 
 HEADERS += \
     include/viewer.h \
     include/sensor-bucket.h \
     include/orientation.h \
-    include/device-info.h
+    include/device-info.h \
+    include/sync.h
 
 MOC_DIR = tmp/moc
 OBJECTS_DIR = tmp/obj

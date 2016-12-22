@@ -36,6 +36,7 @@ public:
                                             //      don't forget to call start()
 
   Q_INVOKABLE void watch (bool doWatch);
+  Q_INVOKABLE void turn();
 
 signals:
 
@@ -52,6 +53,7 @@ private:
 
   QOrientationReading::Orientation   lastSetting;
   bool                               watching;
+  qreal     fakeTurn;
 
 };
 

@@ -5,13 +5,25 @@ Menu {
     id: bigMenu;
     title: "Options"
 
-
-    MenuItem: {
-        title: "Restart"
+    MenuItem {
+        text: "Restart"
         shortcut: "Ctrl+R"
         onTriggered: {
             console.log("would restart here if we could")
             bigMenu.visible = false;
+        }
+    }
+    MenuItem {
+        text: "Rotate";
+        onTriggered: {
+            orientationWatcher.turn();
+        }
+    }
+
+    MenuItem {
+        text: "Nevermind"
+        onTriggered: {
+
         }
     }
 }
