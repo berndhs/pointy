@@ -1,4 +1,7 @@
 
+#!/usr/bin/qmake
+# this is for Qt5
+
 PROJECT = pointy
 TEMPLATE = app
 TARGET = $$PROJECT

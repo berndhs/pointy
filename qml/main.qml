@@ -99,14 +99,19 @@ Rectangle {
     width: mainWidth
     height: rowHeight * 1.5
     Text {
+      id: closeText;
       font.pointSize:  18
       text: "Sensor Demo"
       anchors { centerIn: titleBox }
     }
     MouseArea {
       anchors.fill: parent
-      onClicked: {
-        console.log ("clicked")
+      onPressed: {
+        closeText.color = "red"
+      }
+
+      onReleased: {
+        console.log ("released")
         Qt.quit();
       }
     } 
@@ -131,6 +136,25 @@ Rectangle {
           console.log("clicked on "+pointyButton.iconName+" / "+pointyButton.iconSource)
       }
     }
+    Timer {
+        id: fooHide;
+        interval: 2000;
+        running: false;
+        onTriggered: {
+            fooBox.visible = false;
+        }
+    }
+
+    MainOptions {
+        id: fooBox;
+        visible: false;
+        onVisibleChanged: {
+          if (fooBox.visible) {
+              fooHide.start();
+          }
+        }
+    }
+
     Button {
         id: optionsButton;
         height: titleBox.height-2;
@@ -151,7 +175,10 @@ Rectangle {
 
         onClicked: {
             // popup options
-          console.log("clicked on "+optionsButton.iconName+" / "+optionsButton.iconSource)
+          fooBox.visible = true;
+          fooBox.enabled = true;
+            fooBox.popup();
+          console.log("foo visible is "+ fooBox.visible+ "\n\tclicked on "+optionsButton.iconName+" / "+optionsButton.iconSource)
         }
       }
   }
